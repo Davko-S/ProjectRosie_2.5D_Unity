@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (direction.x == 0 && direction.z > 0)
         {
-            playerAnim = rosieForward.GetComponent<Animator>();
+            playerAnim = rosieBack.GetComponent<Animator>();
             rosieForward.SetActive(false);
             rosieBack.SetActive(true);
             rosieRight.SetActive(false);
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity = 0;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && groundCheck.isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && groundCheck.isGrounded || Input.GetKeyDown(KeyCode.Joystick1Button0) && groundCheck.isGrounded)
         {
             velocity = jumpForce;
             playerAnim.SetBool("Jump", true);
