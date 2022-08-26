@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private GameObject rosieLeft;
     private GameObject rosieBack;
     [SerializeField] Vector3 direction;
+    private bool isColliding = false;
+    [SerializeField] float tiltFactor = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +34,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         direction = new Vector3(horizontalInput, 0, forwardInput); //Updating and keeping track of player's desired direction
-        MovePlayer();
+        MovePlayer(isColliding);
         Walk(direction);
         Jump();
     }
 
-    void MovePlayer()
+    void MovePlayer(bool isColliding)
     {
+        if (isColliding)
+        {
+            Vector3 collideBump = new Vector3(0, 0, 0.001f);
+            transform.Translate((-direction + collideBump) + (direction + collideBump) * tiltFactor);
+        }
         // Forward movement from keyboard input (WASD)
         forwardInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.forward * Time.smoothDeltaTime * speed * forwardInput);
@@ -125,5 +132,14 @@ public class PlayerController : MonoBehaviour
             //groundCheck.isGrounded = false;
         }
         transform.Translate(new Vector3(0, velocity, 0) * Time.smoothDeltaTime);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        isColliding = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isColliding = false;
     }
 }
