@@ -41,11 +41,11 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer(bool isColliding)
     {
-        if (isColliding)
+        /*if (isColliding)
         {
             Vector3 collideBump = new Vector3(0, 0, 0.001f);
             transform.Translate((-direction + collideBump) + (direction + collideBump) * tiltFactor);
-        }
+        }*/
         // Forward movement from keyboard input (WASD)
         forwardInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.forward * Time.smoothDeltaTime * speed * forwardInput);
