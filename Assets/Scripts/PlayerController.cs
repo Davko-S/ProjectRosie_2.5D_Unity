@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity = jumpForce;
             playerAnim.SetBool("Jump", true);
-            //groundCheck.isGrounded = false;
+            groundCheck.isGrounded = false;
         }
         transform.Translate(new Vector3(0, velocity, 0) * Time.smoothDeltaTime);
     }
